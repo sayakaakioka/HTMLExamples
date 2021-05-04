@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <title>YouTubeプレイリストのサンプル</title>
+  </head>
+
+  <body>
+    <!-- JavaScript内で作られたタグはここに埋め込まれる -->
+    <div id="player"></div>
+
+    <!-- ボタンパーツを配置 -->
+    <div>
+      <input type="button" id="btnPrev" value="前の曲" />
+      <input type="button" id="btnPause" value="一時停止" />
+      <input type="button" id="btnPlay" value="再生" />
+      <input type="button" id="btnNext" value="次の曲" />
+    </div>
+
+    <script>
+      window.onload = () => {
+        /* ボタンの状態を取得するための変数を用意 */
+        const btnPrev = document.getElementById("btnPrev");
+        const btnPause = document.getElementById("btnPause");
+        const btnPlay = document.getElementById("btnPlay");
+        const btnNext = document.getElementById("btnNext");
+
+        /* ボタンが押された時に呼び出す関数を登録 */
+        btnPrev.addEventListener("click", prevVideo);
+        btnPause.addEventListener("click", pauseVideo);
+        btnPlay.addEventListener("click", playVideo);
+        btnNext.addEventListener("click", nextVideo);
+      };
+      /**
+       * YouTubeを埋め込むタグを作る
+       */
+      const tag = document.createElement("script");
+      tag.src = "https://www.youtube.com/iframe_api";
+      const firstScriptTag = document.getElementsByTagName("script")[0];
+      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+      /**
+       * プレイヤーの設定
+       */
+      let player;
+      function onYouTubeIframeAPIReady() {
+        player = new YT.Player("player", {
+          width: "640",
+          height: "360",
+
+          /* 1曲だけで良いときは次のようにビデオIDを指定すれば良い */
+          /* IDはURLの「v=」に続く文字列 */
+          /* videoId: "kk-k23Sf3SE", */
+
+          events: {
+            onReady: onPlayerReady,
+            onStateChange: onPlayerStateChange,
+          },
+        });
+      }
+
+      /**
+       * プレイヤーの準備ができた時の処理を登録する。
+       * 今回はプレイリストを読み込む。
+       */
+      function onPlayerReady(event) {
+        event.target.loadPlaylist({
+          /* 指定しているのはプレイリストのID */
+          /* IDはURLの「list=」に続く文字列 */
+          list: "PLtf_i5oc4MGwH32za8UXUDJkWtYiIYaD8",
+        });
+      }
+
+      /**
+       * プレイヤーの状態（再生や一時停止など）が変わった時に呼び出される
+       */
+      function onPlayerStateChange(event) {}
+
+      /* プレイリストのひとつ前の曲を再生 */
+      function prevVideo() {
+        player.previousVideo();
+      }
+
+      /* 再生を一時停止 */
+      function pauseVideo() {
+        player.pauseVideo();
+      }
+
+      /* 再生 */
+      function playVideo() {
+        player.playVideo();
+      }
+
+      /* プレイリストの次の曲を再生 */
+      function nextVideo() {
+        player.nextVideo();
+      }
+    </script>
+  </body>
+</html>

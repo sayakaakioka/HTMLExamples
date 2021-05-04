@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <title>ボタンのサンプル</title>
+  </head>
+  <body>
+    <!-- ボタンパーツを配置する -->
+    <div>
+      <input type="button" id="btn1" value="ボタン1" />
+      <input type="button" id="btn2" value="ボタン2" />
+      <input type="button" id="btn3" value="ボタン3" />
+    </div>
+  </body>
+
+  <script>
+    /**
+     * ページ読み込み時1回のみの挙動を登録する。
+     * Processingでのsetup()と同じイメージ。
+     */
+    window.onload = () => {
+      /**
+       * ボタン1の様子を知るためのオブジェクト
+       * @type {HTMLElement}
+       */
+      const button1 = document.getElementById("btn1");
+
+      /**
+       * ボタン2の様子を知るためのオブジェクト
+       * @type {HTMLElement}
+       */
+      const button2 = document.getElementById("btn2");
+
+      /**
+       * ボタン3の様子を知るためのオブジェクト
+       * @type {HTMLElement}
+       */
+      const button3 = document.getElementById("btn3");
+
+      /**
+       * "click" = 「ボタンが押された時」の挙動を無名関数で登録
+       */
+      button1.addEventListener("click", () => {
+        console.log("ボタン1が押されました");
+      });
+      button2.addEventListener("click", () => {
+        console.log("ボタン2が押されました");
+      });
+      button3.addEventListener("click", () => {
+        console.log("ボタン3が押されました");
+      });
+    };
+  </script>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <title>HTML+JavaScriptのProcessing的なサンプル</title>
+    <style>
+      * {
+        margin: 0px;
+        padding: 0px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- JavaScriptで絵を描くための領域を用意 -->
+    <!-- 領域には「canvas1」という名前をつけてある -->
+    <div>
+      <canvas id="canvas1" width="800" height="500">
+        この文字が見えているってことはブラウザが対応してなさそう。
+      </canvas>
+    </div>
+
+    <!-- JavaScriptはここに書く -->
+    <script>
+      /**
+       * ページ読み込み時1回のみの挙動を登録する。
+       * Processingでのsetup()と同じイメージ。
+       */
+      window.onload = () => {
+        /* 上で用意したcanvas1を操作できるようにオブジェクトを取得 */
+        const canvas = document.getElementById("canvas1");
+
+        /* 一定の時間間隔で行う処理を登録 */
+        setInterval(() => {
+          /* canvasを引数に渡してdraw()を実行。draw()は下で用意している。*/
+          draw(canvas);
+        }, 1000); /* 1000ミリ秒ごとに繰り返す */
+      };
+
+      /* draw()の中でカウントアップするための変数
+       * @type {number}
+       */
+      let counter = 0;
+
+      /**
+       *  繰り返し呼ばれるdraw()の定義
+       *  @param {HTMLElement} Canvasオブジェクト
+       */
+      function draw(c) {
+        /* Canvasから取得したContextに向かってお絵描きする */
+        let context = c.getContext("2d");
+
+        /* すでに描いてある内容をクリア */
+        context.clearRect(0, 0, c.width, c.height);
+
+        /* 色の設定 */
+        context.strokeStyle = "#ff0000";
+        context.fillStyle = "#000000";
+
+        /**
+         * 円の半径
+         * @type {number}
+         */
+        const r = 100;
+
+        /* キャンバスの中心に円を描いてみる */
+        context.arc(c.width / 2, c.height / 2, r, 0, Math.PI * 2);
+
+        if (counter % 2 === 0) {
+          /* 偶数回目は塗りつぶした円を描く */
+          context.fill();
+        } else {
+          /* 奇数回目は輪郭だけの円を描く */
+          context.stroke();
+        }
+
+        /* 絵を描く以外の処理も書くことができる */
+        console.log(counter); /* ブラウザのコンソールに出力 */
+        counter++;
+      }
+    </script>
+  </body>
+</html>

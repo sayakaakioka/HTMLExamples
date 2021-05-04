@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <title>HTML+JavaScriptのProcessing的なサンプル</title>
+    <style>
+      * {
+        margin: 0px;
+        padding: 0px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- JavaScriptで絵を描くための領域を用意 -->
+    <!-- 領域には「canvas1」という名前をつけてある -->
+    <div>
+      <canvas id="canvas1" width="800" height="500">
+        この文字が見えているってことはブラウザが対応してなさそう。
+      </canvas>
+    </div>
+
+    <!-- JavaScriptはここに書く -->
+    <script>
+      /**
+       * 画像を管理するためのオブジェクトを用意
+       * @type {Image}
+       */
+      const img = new Image();
+
+      /* 画像が読み込まれた時にするべき処理を登録 */
+      img.addEventListener(
+        "load",
+        () => {
+          /* 上で用意したcanvas1に、左上を揃えて読み込んだ画像を貼る */
+          const canvas = document.getElementById("canvas1");
+          const context = canvas.getContext("2d");
+          context.drawImage(img, 0, 0);
+        },
+        false
+      );
+
+      /* 画像の読み込み */
+      img.src = "sample.jpg";
+    </script>
+  </body>
+</html>
