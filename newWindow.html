@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <title>openWindow.htmlのボタン1を押すと開くページ</title>
+  </head>
+
+  <body>
+    特に何も表示なし。
+  </body>
+
+  <script>
+    const img = new Image();
+    /**
+     * ページ読み込み時1回のみの挙動を登録する。
+     * Processingでのsetup()と同じイメージ。
+     */
+    window.onload = () => {
+      /* 「data1」という名前がつけられたデータを取り出す */
+      const data1 = sessionStorage.getItem("data1");
+      console.log(data1);
+    };
+  </script>
+</html>

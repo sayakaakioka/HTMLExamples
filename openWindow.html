@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <title>新しいウィンドウを開くサンプル</title>
+  </head>
+  <body>
+    <!-- ボタンパーツを配置する -->
+    <div>
+      <input type="button" id="btn1" value="ボタン1" />
+      <input type="button" id="btn2" value="ボタン2" />
+    </div>
+  </body>
+
+  <script>
+    /**
+     * ページ読み込み時1回のみの挙動を登録する。
+     * Processingでのsetup()と同じイメージ。
+     */
+    window.onload = () => {
+      /**
+       * ボタン1の様子を知るためのオブジェクト
+       * @type {HTMLElement}
+       */
+      const button1 = document.getElementById("btn1");
+
+      /**
+       * ボタン2の様子を知るためのオブジェクト
+       * @type {HTMLElement}
+       */
+      const button2 = document.getElementById("btn2");
+
+      /**
+       * "click" = 「ボタンが押された時」の挙動を無名関数で登録
+       */
+      /* button1を押した時の挙動を登録 */
+      button1.addEventListener("click", () => {
+        /* 新しく開くウィンドウにデータを渡す方法 */
+
+        /* 文字列を「data1」という名前をつけて保存 */
+        sessionStorage.setItem("data1", "dummy data");
+
+        /* 新しいウィンドウを開く */
+        window.open("newWindow.html", "_blank");
+      });
+
+      /* button2を押した時の挙動を登録 */
+      button2.addEventListener("click", () => {
+        /* 指定したURLを開く方法 */
+        window.open("http://www.meiji.ac.jp/", "_blank");
+      });
+    };
+  </script>
+</html>

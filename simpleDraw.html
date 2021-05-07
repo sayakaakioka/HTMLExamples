@@ -52,9 +52,11 @@
         /* すでに描いてある内容をクリア */
         context.clearRect(0, 0, c.width, c.height);
 
-        /* 色の設定 */
-        context.strokeStyle = "#ff0000";
-        context.fillStyle = "#000000";
+        /**
+         * 絵は5種類描く
+         * @type {number}
+         */
+        const N = 5;
 
         /**
          * 円の半径
@@ -62,15 +64,57 @@
          */
         const r = 100;
 
-        /* キャンバスの中心に円を描いてみる */
-        context.arc(c.width / 2, c.height / 2, r, 0, Math.PI * 2);
+        /**
+         * 長方形の横の長さ
+         * @type {number}
+         */
+        const dx = c.width / 2;
 
-        if (counter % 2 === 0) {
-          /* 偶数回目は塗りつぶした円を描く */
-          context.fill();
+        /**
+         * 長方形の縦の長さ
+         * @type {number}
+         */
+        const dy = c.height / 2;
+
+        if (counter % N === 0) {
+          /* キャンバスの中心に塗りつぶした円を描く */
+          context.beginPath(); /* 新たな線を描き始めるという宣言 */
+          context.arc(c.width / 2, c.height / 2, r, 0, Math.PI * 2);
+          context.closePath(); /* 線の宣言はここまで */
+          context.fillStyle = "#000000"; /* 塗りつぶしの色 */
+          context.fill(); /* 描画 */
+        } else if (counter % N === 1) {
+          /* キャンバスの中心に輪郭だけの円を描く */
+          context.beginPath(); /* 新たな線を描き始めるという宣言 */
+          context.arc(c.width / 2, c.height / 2, r, 0, Math.PI * 2);
+          context.closePath(); /* 線の宣言はここまで */
+          context.lineWidth = 10; /* 線の太さ */
+          context.strokeStyle = "#ff0000"; /* 線の色 */
+          context.stroke(); /* 描画 */
+        } else if (counter % N === 2) {
+          /* 直線を描く */
+          context.beginPath(); /* 新たな線を描き始めるという宣言 */
+          context.moveTo(c.width / 4, c.height / 4); /* 直線の始点に移動 */
+          context.lineTo((3 * c.width) / 4, (3 * c.height) / 4); /* 終点 */
+          context.closePath(); /* 線の宣言はここまで */
+          context.lineWidth = 5; /* 線の太さ */
+          context.strokeStyle = "#00ff00"; /* 線の色 */
+          context.stroke(); /* 描画 */
+        } else if (counter % N === 3) {
+          /* キャンバスの中心に塗りつぶした四角を描く */
+          context.beginPath(); /* 新たな線を描き始めるという宣言 */
+          context.rect(c.width / 4, c.height / 4, dx, dy);
+          context.closePath(); /* 線の宣言はここまで */
+          context.fillStyle = "#ffff00"; /* 塗りつぶしの色 */
+          context.fill(); /* 描画 */
         } else {
-          /* 奇数回目は輪郭だけの円を描く */
-          context.stroke();
+          /* キャンバスの中心に輪郭だけの四角を描く */
+          context.beginPath(); /* 新たな線を描き始めるという宣言 */
+          context.rect(c.width / 4, c.height / 4, dx, dy);
+          context.closePath(); /* 線の宣言はここまで */
+          context.lineWidth = 3; /* 線の太さ */
+          context.strokeStyle = "#0000ff"; /* 線の色 */
+          context.stroke(); /* 描画 */
         }
 
         /* 絵を描く以外の処理も書くことができる */
