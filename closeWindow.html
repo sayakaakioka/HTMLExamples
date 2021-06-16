@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <title>ボタンを押すとウィンドウが閉じるサンプル</title>
+  </head>
+  <body>
+    <!-- ボタンパーツを配置する -->
+    <div>
+      <input type="button" id="btn" value="ボタン" />
+    </div>
+  </body>
+
+  <script>
+    /**
+     * ページ読み込み時1回のみの挙動を登録する。
+     * Processingでのsetup()と同じイメージ。
+     */
+    window.onload = () => {
+      /**
+       * ボタンの様子を知るためのオブジェクト
+       * @type {HTMLElement}
+       */
+      const button = document.getElementById("btn");
+
+      /**
+       * "click" = 「ボタンが押された時」の挙動を無名関数で登録
+       */
+      button.addEventListener("click", () => {
+        window.open('','_self').close();
+        console.log("ボタンが押されました");
+      });
+    };
+  </script>
+</html>
